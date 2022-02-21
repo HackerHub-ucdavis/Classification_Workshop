@@ -9,7 +9,7 @@ class SVM(Model):
     def __init__(self, data, max_epoch=1000, alpha = 0.0001):
         Model.__init__(self, data)
         self.max_epoch = max_epoch
-        self.alpha = 0.0001
+        self.learning_rate = 0.0001
         self.weights = None
         
     def train(self):
@@ -39,13 +39,13 @@ class SVM(Model):
                     cost = 0
                     for j in range(n_features):
                         w = self.weights[j]
-                        self.weights[j] = w - self.alpha * (2 * 1/epoch * w)
+                        self.weights[j] = w - self.learning_rate * (2 * 1/epoch * w)
                 else :
                     cost = 1 - val
                     for j in range(n_features):
                         w = self.weights[j]
                         f = features[j]
-                        self.weights[j] = w + self.alpha * (f[count] * y_train[count] - 2 * 1/epoch * w)
+                        self.weights[j] = w + self.learning_rate * (f[count] * y_train[count] - 2 * 1/epoch * w)
                 count += 1
             
             if epoch % 100 == 0:
